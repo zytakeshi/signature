@@ -52,7 +52,7 @@ git log --oneline
 
 1. **Change the PIN**: 
    - Current PIN: `Signature2024!`
-   - Edit `signature-ai/src/index.ts` line with the PIN constant
+   - Edit `src/index.ts` line with the PIN constant
    - Choose a secure PIN for production
 
 2. **Secure Your API Key**:
@@ -74,12 +74,11 @@ ai-signature-generator/
 ├── LICENSE                # MIT License
 ├── .gitignore            # Git ignore rules
 ├── GITHUB_SETUP.md       # This file
-└── signature-ai/         # Main application code
-    ├── src/
-    │   └── index.ts      # Main application logic
-    ├── package.json      # Dependencies
-    ├── wrangler.jsonc    # Cloudflare configuration
-    └── ...               # Other config files
+├── src/
+│   └── index.ts          # Main application logic
+├── package.json          # Dependencies
+├── wrangler.jsonc        # Cloudflare configuration
+└── ...                   # Other config files
 ```
 
 ## 🌟 Features Summary

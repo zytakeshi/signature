@@ -77,8 +77,8 @@ This project demonstrates a **serverless-first approach** to building SaaS appli
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/ai-signature-generator.git
-cd ai-signature-generator/signature-ai
+git clone https://github.com/zytakeshi/ai-signature-generator.git
+cd ai-signature-generator
 ```
 
 ### 2. Install Dependencies
@@ -87,7 +87,7 @@ npm install
 ```
 
 ### 3. Configure Environment
-Create a `.dev.vars` file in the `signature-ai` directory:
+Create a `.dev.vars` file in the project root:
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
 ```
@@ -118,7 +118,7 @@ Visit `http://localhost:8787` to see your application running locally.
      - **Framework preset**: None
      - **Build command**: Leave empty
      - **Build output directory**: Leave empty
-     - **Root directory**: `signature-ai`
+           - **Root directory**: `/` (root of repository)
 
 3. **Add Environment Variables**
    - In your Cloudflare Pages project settings

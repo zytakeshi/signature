@@ -55,7 +55,7 @@ Before you begin, make sure you have:
    Framework preset: None
    Build command: (leave empty)
    Build output directory: (leave empty)
-   Root directory: signature-ai
+   Root directory: / (root of repository)
    ```
 
 4. **Add Environment Variables**:
@@ -88,7 +88,7 @@ If you prefer command-line deployment:
 
 3. **Configure Project**:
    ```bash
-   cd signature-ai
+   # Already in the project root
    wrangler init
    ```
 
@@ -120,7 +120,7 @@ If you prefer command-line deployment:
 
 2. **Deploy**:
    ```bash
-   cd signature-ai
+   # Already in the project root
    vercel
    ```
 
@@ -182,7 +182,7 @@ Before going live, ensure:
 - Redeploy after adding environment variable
 
 **3. "Build failed"**
-- Check root directory is set to `signature-ai`
+- Check root directory is set to `/` (root of repository)
 - Verify all files are committed to GitHub
 
 **4. "PIN not working"**
