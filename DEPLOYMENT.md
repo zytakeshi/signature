@@ -1,6 +1,6 @@
 # 🚀 Deployment Guide
 
-This guide will walk you through deploying your AI Signature Generator to the cloud for free using Cloudflare Pages.
+This guide walks through deploying the AI Signature Generator as a Cloudflare Worker using the checked-in `wrangler.jsonc` configuration.
 
 ## 📋 Prerequisites
 
@@ -13,120 +13,47 @@ Before you begin, make sure you have:
 
 ## 🎯 Quick Deployment (5 minutes)
 
-### Step 1: Prepare Your Repository
+### Step 1: Clone and install
 
-1. **Initialize Git** (if not already done):
+```bash
+git clone https://github.com/zytakeshi/signature.git
+cd signature
+npm install
+```
+
+### Step 2: Login to Cloudflare
+
    ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: AI Signature Generator MVP"
+   npx wrangler login
    ```
 
-2. **Create GitHub Repository**:
-   - Go to [GitHub](https://github.com)
-   - Click "New repository"
-   - Name it: `ai-signature-generator`
-   - Make it **Public** (for free deployment)
-   - Don't initialize with README (we already have one)
+### Step 3: Add the OpenAI secret
 
-3. **Push to GitHub**:
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/ai-signature-generator.git
-   git branch -M main
-   git push -u origin main
-   ```
+```bash
+npx wrangler secret put OPENAI_API_KEY
+```
 
-### Step 2: Deploy with Cloudflare Pages
+### Step 4: Deploy
 
-1. **Go to Cloudflare Dashboard**:
-   - Visit [Cloudflare Dashboard](https://dash.cloudflare.com)
-   - Sign in or create account
+```bash
+npm run deploy
+```
 
-2. **Create Pages Project**:
-   - Click "Pages" in the sidebar
-   - Click "Create a project"
-   - Choose "Connect to Git"
-   - Select your GitHub repository: `ai-signature-generator`
+The Worker name defaults to `ai-signature-generator` in `wrangler.jsonc`. To use a different Cloudflare Worker name, update the `name` field before deploying.
 
-3. **Configure Build Settings**:
-   ```
-   Project name: ai-signature-generator (or your preferred name)
-   Production branch: main
-   Framework preset: None
-   Build command: (leave empty)
-   Build output directory: (leave empty)
-   Root directory: / (root of repository)
-   ```
+### Local development
 
-4. **Add Environment Variables**:
-   - Click "Environment variables"
-   - Add new variable:
-     - **Variable name**: `OPENAI_API_KEY`
-     - **Value**: `your_openai_api_key_here`
-   - Click "Save"
+For local testing, create `.dev.vars`:
 
-5. **Deploy**:
-   - Click "Save and Deploy"
-   - Wait 2-3 minutes for deployment
-   - Your app will be live at: `https://your-project-name.pages.dev`
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-## 🔧 Alternative Deployment Methods
+Then run:
 
-### Option A: Cloudflare Workers (CLI)
-
-If you prefer command-line deployment:
-
-1. **Install Wrangler CLI**:
-   ```bash
-   npm install -g wrangler
-   ```
-
-2. **Login to Cloudflare**:
-   ```bash
-   wrangler login
-   ```
-
-3. **Configure Project**:
-   ```bash
-   # Already in the project root
-   wrangler init
-   ```
-
-4. **Update wrangler.jsonc**:
-   ```json
-   {
-     "name": "your-signature-generator",
-     "main": "src/index.ts",
-     "compatibility_date": "2024-01-01"
-   }
-   ```
-
-5. **Add Secret**:
-   ```bash
-   wrangler secret put OPENAI_API_KEY
-   ```
-
-6. **Deploy**:
-   ```bash
-   wrangler deploy
-   ```
-
-### Option B: Vercel (Alternative Platform)
-
-1. **Install Vercel CLI**:
-   ```bash
-   npm install -g vercel
-   ```
-
-2. **Deploy**:
-   ```bash
-   # Already in the project root
-   vercel
-   ```
-
-3. **Add Environment Variable**:
-   - Go to Vercel Dashboard
-   - Add `OPENAI_API_KEY` environment variable
+```bash
+npm run dev
+```
 
 ## 🧪 Testing Your Deployment
 
@@ -178,12 +105,12 @@ Before going live, ensure:
 - Check OpenAI API status
 
 **2. "Environment variable not found"**
-- Ensure `OPENAI_API_KEY` is set in Cloudflare Pages
-- Redeploy after adding environment variable
+- Ensure `OPENAI_API_KEY` is set with `npx wrangler secret put OPENAI_API_KEY`
+- Redeploy after adding the secret
 
-**3. "Build failed"**
-- Check root directory is set to `/` (root of repository)
-- Verify all files are committed to GitHub
+**3. "Deploy failed"**
+- Verify `wrangler.jsonc` exists and points at `src/index.ts`
+- Run `npm install` before deploying
 
 **4. "PIN not working"**
 - Verify PIN is `Signature2024!` (or your custom PIN)
@@ -191,14 +118,13 @@ Before going live, ensure:
 
 ### Getting Help
 
-- 📖 [Cloudflare Pages Docs](https://developers.cloudflare.com/pages/)
+- 📖 [Cloudflare Workers Docs](https://developers.cloudflare.com/workers/)
 - 📖 [OpenAI API Docs](https://platform.openai.com/docs)
-- 🐛 [Create GitHub Issue](https://github.com/yourusername/ai-signature-generator/issues)
+- 🐛 [Create GitHub Issue](https://github.com/zytakeshi/signature/issues)
 
 ## 💰 Cost Optimization
 
 ### Free Tier Limits
-- **Cloudflare Pages**: Unlimited requests
 - **Cloudflare Workers**: 100,000 requests/day
 - **OpenAI API**: Pay per request (~$0.04/image)
 
@@ -220,4 +146,4 @@ Your AI Signature Generator is now live and ready to use!
 
 ---
 
-**Need help?** Create an issue on GitHub or check the troubleshooting section above. 
+**Need help?** Create an issue on GitHub or check the troubleshooting section above.

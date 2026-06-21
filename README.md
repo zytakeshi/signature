@@ -63,7 +63,7 @@ This project demonstrates a **serverless-first approach** to building SaaS appli
 - **Frontend**: Vanilla HTML, CSS, JavaScript
 - **Backend**: Cloudflare Workers (Serverless)
 - **AI**: OpenAI DALL-E 3 API
-- **Deployment**: Cloudflare Pages (Free)
+- **Deployment**: Cloudflare Workers via Wrangler
 - **Styling**: Custom CSS with modern design patterns
 - **Internationalization**: Custom i18n implementation
 
@@ -77,8 +77,8 @@ This project demonstrates a **serverless-first approach** to building SaaS appli
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/zytakeshi/ai-signature-generator.git
-cd ai-signature-generator
+git clone https://github.com/zytakeshi/signature.git
+cd signature
 ```
 
 ### 2. Install Dependencies
@@ -101,59 +101,24 @@ Visit `http://localhost:8787` to see your application running locally.
 
 ## 🌐 Free Deployment
 
-### Option 1: Cloudflare Pages (Recommended)
+This repo is configured as a Cloudflare Worker. The deployment config is `wrangler.jsonc`, and the npm script runs `wrangler deploy`.
 
-1. **Push to GitHub**
+1. **Login to Cloudflare**
    ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
+   npx wrangler login
    ```
 
-2. **Connect to Cloudflare Pages**
-   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com)
-   - Navigate to "Pages" → "Create a project"
-   - Connect your GitHub repository
-   - Set build settings:
-     - **Framework preset**: None
-     - **Build command**: Leave empty
-     - **Build output directory**: Leave empty
-           - **Root directory**: `/` (root of repository)
-
-3. **Add Environment Variables**
-   - In your Cloudflare Pages project settings
-   - Go to "Environment variables"
-   - Add: `OPENAI_API_KEY` = `your_openai_api_key`
-
-4. **Deploy**
-   - Click "Save and Deploy"
-   - Your app will be live at `https://your-project-name.pages.dev`
-
-### Option 2: Cloudflare Workers
-
-1. **Install Wrangler CLI**
+2. **Add the OpenAI secret**
    ```bash
-   npm install -g wrangler
+   npx wrangler secret put OPENAI_API_KEY
    ```
 
-2. **Login to Cloudflare**
+3. **Deploy**
    ```bash
-   wrangler login
+   npm run deploy
    ```
 
-3. **Configure Wrangler**
-   Update `wrangler.jsonc` with your project name:
-   ```json
-   {
-     "name": "your-signature-generator",
-     "main": "src/index.ts"
-   }
-   ```
-
-4. **Deploy**
-   ```bash
-   wrangler deploy
-   ```
+The Worker name defaults to `ai-signature-generator` in `wrangler.jsonc`; change that `name` field if you need a different Cloudflare Worker name.
 
 ## 🔧 Configuration
 
@@ -220,7 +185,7 @@ const promptTemplate = language === 'zh'
 
 ### Free Tier Limits
 - **Cloudflare Workers**: 100,000 requests/day
-- **Cloudflare Pages**: Unlimited bandwidth
+- **Cloudflare Workers**: free tier available for small projects
 - **OpenAI API**: Pay per request (~$0.04 per image)
 
 ### Estimated Monthly Costs
@@ -269,4 +234,4 @@ If you have questions or need help:
 
 **Built with ❤️ using Cloudflare Workers and OpenAI DALL-E 3**
 
-*This project demonstrates how to build a modern SaaS application without traditional server infrastructure. Perfect for MVPs, side projects, and learning serverless development.* 
+*This project demonstrates how to build a modern SaaS application without traditional server infrastructure. Perfect for MVPs, side projects, and learning serverless development.*
