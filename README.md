@@ -215,7 +215,7 @@ This is an MVP project designed to showcase serverless SaaS development. Contrib
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+License terms have not yet been published for this repository.
 
 ## 🙏 Acknowledgments
 
